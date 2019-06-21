@@ -9,10 +9,11 @@
                 <div class="col-md-4 probootstrap-animate card card-body" v-for="product in products" v-bind:key="product.id">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
-                            <a href="#"><img src="" class="img-responsive img-border" alt="image"></a>
+                            <a href="#"><img :src="product.image" class="img-responsive img-border" alt="image"></a>
                         </div>
                         <div class="probootstrap-card-text">
                             <h2 class="probootstrap-card-heading mb0">{{ product.name }}</h2>
+                            <router-link :to="{name: 'Viewproduct', params: {id: product.hashid}}" class="btn btn-xs btn-primary" >View</router-link>
                             <router-link :to="{name: 'Editproduct', params: {id: product.hashid}}" class="btn btn-xs btn-primary" >Edit</router-link>
                             <a href="#" class="btn btn-xs btn-danger" v-on:click="deleteEntry(product.hashid, index)">Delete</a>
                         </div>

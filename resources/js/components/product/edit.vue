@@ -30,7 +30,7 @@
                     price :'',
                     description:'',  
                 },
-                id: this.$route.params.id,
+                id: this.$router.params.id,
                 name_label:'Name',
                 code_label:'Code',
                 price_label:'Price',

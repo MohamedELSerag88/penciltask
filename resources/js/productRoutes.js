@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import products from './components/product/ProductsComponent';
-import indexproduct from './components/product/index';
+import Indexproduct from './components/product/index';
 import createproduct from './components/product/create';
 import Editproduct from './components/product/edit';
+import Viewproduct from './components/product/view';
 
 // Plugins.
 Vue.use(Router);
@@ -15,13 +16,19 @@ export default [
         component: products,
         meta: { title: 'Products' },
         redirect: {
-            name: 'indexproduct'
+            name: 'Indexproduct'
         },
         children: [
             {
                 path: '/',
-                name: 'indexproduct',
-                component: indexproduct,
+                name: 'Indexproduct',
+                component: Indexproduct,
+                meta: { title: 'Products' },   
+            },
+            {
+                path: ':id',
+                name: 'Viewproduct',
+                component: Viewproduct,
                 meta: { title: 'Products' },   
             },
             {

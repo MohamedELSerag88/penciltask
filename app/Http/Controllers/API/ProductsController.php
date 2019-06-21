@@ -50,6 +50,8 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
+        $product = Product::where('hashid', $id)->first();
+        return response()->json( $product, 200);
     }
 
     /**
