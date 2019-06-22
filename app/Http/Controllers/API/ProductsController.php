@@ -43,9 +43,12 @@ class ProductsController extends Controller
         $input = $request->all();
         $input['hashid'] = Guid::create();
         $product = Product::create($input);
-        unset($input['attributes'][0]);
-        $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
-        $product->otherattributes()->attach($input['attributes']);
+        if(isset($input['attributes']) && count($input['attributes'])){
+            unset($input['attributes'][0]);
+            $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
+            $product->otherattributes()->attach($input['attributes']);
+        }
+       
         return response()->json($product, 201);
     }
 
@@ -95,9 +98,12 @@ class ProductsController extends Controller
         $product->price = $input['price'];
         $product->description = $input['description'] ?? '';
         $product->save();
-        $product->otherattributes()->detach();
-        $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
-        $product->otherattributes()->attach($input['attributes']);
+        if(isset($input['attributes']) && count($input['attributes'])){
+            $product->otherattributes()->detach();
+            $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
+            $product->otherattributes()->attach($input['attributes']);
+        }
+        
         return response()->json($product, 200);        
 
     }
