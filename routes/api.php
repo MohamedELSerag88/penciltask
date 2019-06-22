@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::resource('products', 'API\ProductsController');
+Route::post('createcustom/','API\ProductsController@createcustom');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

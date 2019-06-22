@@ -2,8 +2,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center section-heading probootstrap-animate">
-                <h2> Products</h2>
+                    <h2> Products</h2>
                 </div>
+                <router-link :to="{name: 'createproduct'}" class="btn btn-xs btn-primary" >Add New Product</router-link>
+                <router-link :to="{name: 'customfield'}" class="btn btn-xs btn-primary" style="margin-left: 20px;">Add New Custom Field</router-link>
+
             </div>
             <div class="row">
                 <div class="col-md-4 probootstrap-animate card card-body" v-for="product, index in products" v-bind:key="product.id">

@@ -1,5 +1,6 @@
 <template>
     <div class="product_image_area">
+                <router-link :to="{name: 'products'}" class="btn btn-xs btn-primary" >Back</router-link>                
         <div class="container">
             <div class="row s_product_inner">
                 <div class="col-lg-6">
@@ -7,8 +8,8 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
-                        <h3 >{{ product.name }}</h3>
-                        <h2 >$ {{ product.price }}</h2>
+                        <h3 >Name : {{ product.name }}</h3>
+                        <h2 >Price :$ {{ product.price }}</h2>
                         <h2>Code :  {{ product.code }}</h2>
                     
                         <p>

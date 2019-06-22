@@ -5,6 +5,7 @@ import Indexproduct from './components/product/index';
 import createproduct from './components/product/create';
 import Editproduct from './components/product/edit';
 import Viewproduct from './components/product/view';
+import customfield from './components/product/custom'
 
 // Plugins.
 Vue.use(Router);
@@ -26,7 +27,7 @@ export default [
                 meta: { title: 'Products' },   
             },
             {
-                path: ':id',
+                path: 'show/:id',
                 name: 'Viewproduct',
                 component: Viewproduct,
                 meta: { title: 'Products' },   
@@ -42,6 +43,12 @@ export default [
                 name: 'Editproduct',
                 component: Editproduct,
                 meta: { title: 'Edit Product' },   
+            },
+            {
+                path: '/custom',
+                name: 'customfield',
+                component: customfield,
+                meta: { title: 'Custom Field' },   
             }
         ]
     }

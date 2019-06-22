@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use  App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Attribute;
 use Guid;
 
 class ProductsController extends Controller
@@ -39,6 +40,10 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        $input = $request->all();
+        $input['hashid'] = Guid::create();
+        $product = Product::create($input);
+        return response()->json($product, 201);
     }
 
     /**
@@ -105,5 +110,12 @@ class ProductsController extends Controller
         //
         $product = Product::where('hashid', $id)->first()->delete();
         return response()->json("Done", 200);
+    }
+
+    public function createcustom(Request $request){
+        $input = $request->all();
+        $attribute = Attribute::create($input);
+        return response()->json($attribute, 201);
+
     }
 }
