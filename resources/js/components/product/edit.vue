@@ -30,21 +30,12 @@
                     </div>
                     <div class="form-group col-md-6" v-for="attribute ,index  in customattributes">
                         <label class="col-md-4 control-label">{{ attribute.name }}</label>
-                        <label class="col-md-4 control-label">  {{ attribute.name }}</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
-                                <input :placeholder="attribute.name" class="form-control"   type="text">
+                                <input :placeholder="attribute.name" v-model="product.attributes[attribute.id]" class="form-control"   type="text">
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="form-group">
-                        <label class="col-md-4 control-label">Other Fileds</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                                <input  name="custom" placeholder="Full Name" class="form-control" required="true"  type="text">
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="form-group col-md-6">
                         <label class="col-md-4 control-label">Description</label>
                         <div class="col-md-8 inputGroupContainer">
@@ -103,7 +94,7 @@
             axios.get('/api/products/' + id+ '/edit')
                 .then(function (resp) {
                     app.product = resp.data.product;
-                    app.product.attributes = resp.data.attributes;
+                    app.product.attributes = new Array(resp.data.allattribute.length)
                     app.customattributes = resp.data.allattribute;
                 })
                 .catch(function () {

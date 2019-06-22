@@ -1949,15 +1949,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1991,7 +1982,7 @@ __webpack_require__.r(__webpack_exports__);
     app.productId = id;
     axios.get('/api/products/' + id + '/edit').then(function (resp) {
       app.product = resp.data.product;
-      app.product.attributes = resp.data.attributes;
+      app.product.attributes = new Array(resp.data.allattribute.length);
       app.customattributes = resp.data.allattribute;
     })["catch"](function () {
       alert("Could not load your Product");
@@ -38718,15 +38709,34 @@ var render = function() {
                       _vm._v(_vm._s(attribute.name))
                     ]),
                     _vm._v(" "),
-                    _c("label", { staticClass: "col-md-4 control-label" }, [
-                      _vm._v("  " + _vm._s(attribute.name))
-                    ]),
-                    _vm._v(" "),
                     _c("div", { staticClass: "col-md-8 inputGroupContainer" }, [
                       _c("div", { staticClass: "input-group" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.product.attributes[attribute.id],
+                              expression: "product.attributes[attribute.id]"
+                            }
+                          ],
                           staticClass: "form-control",
-                          attrs: { placeholder: attribute.name, type: "text" }
+                          attrs: { placeholder: attribute.name, type: "text" },
+                          domProps: {
+                            value: _vm.product.attributes[attribute.id]
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.product.attributes,
+                                attribute.id,
+                                $event.target.value
+                              )
+                            }
+                          }
                         })
                       ])
                     ])
