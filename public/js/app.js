@@ -1793,7 +1793,6 @@ __webpack_require__.r(__webpack_exports__);
       var newproduct = app.product;
       console.log(app.product.image);
       axios.post('/api/products', newproduct).then(function (resp) {
-        alert('success');
         app.$router.push({
           path: '/'
         });
@@ -1980,7 +1979,6 @@ __webpack_require__.r(__webpack_exports__);
       var newproduct = app.product;
       axios.patch('/api/products/' + app.productId, newproduct).then(function (resp) {
         console.log(resp);
-        alert('success');
         app.$router.replace('/');
       })["catch"](function (error) {
         console.log(error);
@@ -2220,7 +2218,6 @@ __webpack_require__.r(__webpack_exports__);
       var formdata = new FormData();
       formdata.append('image', app.image, app.image.name);
       axios.post('/api/uploadimage/' + app.productId, formdata).then(function (resp) {
-        alert('success');
         app.product = resp.data;
       })["catch"](function (error) {});
     }
@@ -38344,14 +38341,14 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.product.attributes[index + 1],
-                              expression: "product.attributes[index + 1]"
+                              value: _vm.product.attributes[attribute.id],
+                              expression: "product.attributes[attribute.id]"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { placeholder: attribute.name, type: "text" },
                           domProps: {
-                            value: _vm.product.attributes[index + 1]
+                            value: _vm.product.attributes[attribute.id]
                           },
                           on: {
                             input: function($event) {
@@ -38360,7 +38357,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.product.attributes,
-                                index + 1,
+                                attribute.id,
                                 $event.target.value
                               )
                             }

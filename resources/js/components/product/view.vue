@@ -109,7 +109,6 @@
                 formdata.append('image',app.image,app.image.name);
                 axios.post('/api/uploadimage/'+app.productId,formdata)
                 .then(function (resp) {
-                    alert('success');
                     app.product = resp.data;
                 }).catch(function (error) {
                 });

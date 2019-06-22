@@ -90,7 +90,6 @@
                 axios.patch('/api/products/'+app.productId,newproduct)
                 .then(function (resp) {
                     console.log(resp);
-                    alert('success');
                    app.$router.replace('/');
                 }).catch(function (error) {
                     console.log(error)

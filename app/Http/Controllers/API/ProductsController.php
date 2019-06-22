@@ -43,6 +43,7 @@ class ProductsController extends Controller
         $input = $request->all();
         $input['hashid'] = Guid::create();
         $product = Product::create($input);
+        unset($input['attributes'][0]);
         $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
         $product->otherattributes()->attach($input['attributes']);
         return response()->json($product, 201);
@@ -87,13 +88,6 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        // $this->validate($request,[
-        //     'name'=>'required',
-        //     'code'=>'required',
-        //     'price'=>'required',
-        //     'image'=>'required'
-        // ]);
         $input = $request->all();
         $product = Product::where('hashid', $id)->first();
         $product->name = $input['name'];

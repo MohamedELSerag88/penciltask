@@ -33,7 +33,7 @@
                         <label class="col-md-4 control-label">{{ attribute.name }}</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
-                                <input v-model="product.attributes[index + 1]"  :placeholder="attribute.name" class="form-control"   type="text">
+                                <input v-model="product.attributes[attribute.id]"  :placeholder="attribute.name" class="form-control"   type="text">
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,7 @@
                 var newproduct =app.product;
                 console.log(app.product.image);
                 axios.post('/api/products',newproduct)
-                    .then(function (resp) {
-                        alert('success');   
+                    .then(function (resp) {  
                         app.$router.push({path: '/'});
                     })
                     .catch(function (resp) {
