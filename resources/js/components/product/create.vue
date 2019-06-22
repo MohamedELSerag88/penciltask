@@ -38,6 +38,21 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">Image</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <a class="btn btn-xs btn-primary" @click="onPickFile" style="height: max-content;"> Upload Photo</a>  
+                                <input type="file"  @change="selectedfile" style="display:none" accept="image/*" ref="file">           
+
+                                <div>
+                                    <img :src="imageURL" alt="" height="200">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group col-md-6">
                         <label class="col-md-4 control-label">Description</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
@@ -66,7 +81,10 @@
                         description:'',  
                         attributes:[]
                     },
+            productId:null,        
+            image: null,
             SelectedFile:null,
+            imageURL:null,
             customattributes:{
                 
                             }
@@ -77,18 +95,34 @@
                 var newproduct =app.product;
                 console.log(app.product.image);
                 axios.post('/api/products',newproduct)
-                    .then(function (resp) {  
-                        app.$router.push({path: '/'});
+                    .then(function (resp) { 
+                        app.product = resp.data;
+                        app.productId= app.product.id; 
+                        var formdata = new FormData();
+                        formdata.append('image',app.image,app.image.name);
+                        axios.post('/api/uploadimage/'+app.productId,formdata)
+                        .then(function (resp) {
+                                app.$router.push({path: '/'});
+                        }).catch(function (error) {
+                        });  
                     })
                     .catch(function (resp) {
-                        console.log(resp)
                         alert("Could not create your Product");
                     });
+                  
             },
-            onFileSelected (event){
-                let app = this;
-                app.product.image = event.target.files[0];
-
+            onPickFile :function(){
+                this.$refs.file.click();
+            },
+            selectedfile (event){
+                var app = this;
+                app.image = event.target.files[0];
+                var filename = app.image.name;
+                var filereader = new FileReader();
+                filereader.addEventListener('load',function(){
+                app.imageURL = filereader.result;
+                });
+                filereader.readAsDataURL(app.image);
             },
         },
         mounted() {
