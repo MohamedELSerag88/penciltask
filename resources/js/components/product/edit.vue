@@ -40,6 +40,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group col-md-6" v-for="attribute ,index  in customattributes">
+                        <label class="col-md-4 control-label">{{ attribute.name }}</label>
+                        <label class="col-md-4 control-label">  {{ attribute.name }}</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <input :placeholder="attribute.name" class="form-control"   type="text">
+                            </div>
+                        </div>
+                    </div>
                     <!-- <div class="form-group">
                         <label class="col-md-4 control-label">Other Fileds</label>
                         <div class="col-md-8 inputGroupContainer">
@@ -77,9 +86,13 @@
                     code :'',
                     price :'',
                     description:'',  
-                    image: ''
+                    image: '',
+                    attributes :[]
                 },
-                image:''
+                image:'',
+                customattributes:{
+                    
+                }
             }
         },
         
@@ -107,8 +120,10 @@
             app.productId = id;
             axios.get('/api/products/' + id+ '/edit')
                 .then(function (resp) {
-                    app.product = resp.data;
-                    app.productId = resp.data.hashid;
+                    app.product = resp.data.product;
+                    app.product.attributes = resp.data.attributes;
+                    console.log(app.product.attributes);
+                    app.customattributes = resp.data.allattribute;
                 })
                 .catch(function () {
                     alert("Could not load your Product")

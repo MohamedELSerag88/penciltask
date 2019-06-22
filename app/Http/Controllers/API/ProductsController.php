@@ -59,6 +59,7 @@ class ProductsController extends Controller
         //
         $product = Product::where('hashid', $id)->first();
         $attributes = $product->otherattributes;
+
         return response()->json( ['product'=>$product, 'attributes' => $attributes], 200);
     }
 
@@ -72,7 +73,9 @@ class ProductsController extends Controller
     {
         //
         $product = Product::where('hashid', $id)->first();
-        return response()->json($product, 200);
+        $attributes = $product->otherattributes;
+        $allattribute = \App\Attribute::all();
+        return response()->json(['allattribute' => $allattribute,'product'=>$product, 'attributes' => $attributes], 200);
     }
 
     /**
@@ -98,6 +101,9 @@ class ProductsController extends Controller
         $product->price = $input['price'];
         $product->description = $input['description'] ?? '';
         $product->save();
+        $product->otherattributes()->detach();
+        $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
+        $product->otherattributes()->attach($input['attributes']);
         return response()->json($product, 200);        
 
     }

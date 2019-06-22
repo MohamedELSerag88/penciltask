@@ -44,7 +44,7 @@
                         <label class="col-md-4 control-label">{{ attribute.name }}</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
-                                <input v-model="product.attributes[index + 1]"  :placeholder="attribute.name" class="form-control" required="true"  type="text">
+                                <input v-model="product.attributes[index + 1]"  :placeholder="attribute.name" class="form-control"   type="text">
                             </div>
                         </div>
                     </div>
