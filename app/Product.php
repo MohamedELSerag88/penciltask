@@ -54,5 +54,9 @@ class Product extends Model
     //     $this->attributes['image'] = '/uploads//' . $fileName;
     // }
 
+    public function otherattributes(){
+        return $this->belongsToMany('App\Attribute','product_attributes')->withPivot('value');
+    } 
+
 
 }

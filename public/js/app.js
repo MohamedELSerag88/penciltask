@@ -2160,6 +2160,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -2167,7 +2182,8 @@ __webpack_require__.r(__webpack_exports__);
     var id = app.$route.params.id;
     app.productId = id;
     axios.get('/api/products/' + id).then(function (resp) {
-      app.product = resp.data;
+      app.product = resp.data.product;
+      app.customattributes = resp.data.attributes;
       console.log(app.product);
     })["catch"](function () {
       alert("Could not load your Product");
@@ -2181,8 +2197,10 @@ __webpack_require__.r(__webpack_exports__);
         image: '',
         code: '',
         price: '',
-        description: ''
+        description: '',
+        otherattributes: []
       },
+      customattributes: {},
       edit: false
     };
   },
@@ -38952,7 +38970,31 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "card card-outline-secondary my-4" }, [
+            _c("div", { staticClass: "card-header" }, [
+              _vm._v(
+                "\n                        Product Custom Fields\n                    "
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("table", { staticClass: "table table-bordered" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.customattributes, function(attribute) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(attribute.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(attribute.pivot.value))])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
+          ])
         ])
       ])
     ])
@@ -38963,25 +39005,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card card-outline-secondary my-4" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _vm._v(
-          "\n                        Product Custom Fields\n                    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("p", [
-          _vm._v(
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus."
-          )
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Custom Attribute")]),
         _vm._v(" "),
-        _c("small", { staticClass: "text-muted" }, [
-          _vm._v("Posted by Anonymous on 3/1/17")
-        ]),
-        _vm._v(" "),
-        _c("hr")
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Value")])
       ])
     ])
   }

@@ -27,9 +27,24 @@
                             Product Custom Fields
                         </div>
                         <div class="card-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                            <hr>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" >Custom Attribute</th>
+                                        <th scope="col" >Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="attribute in customattributes">
+                                        <td>{{ attribute.name }}</td>
+                                        <td>{{ attribute.pivot.value }}</td>
+                                    </tr>
+                                    
+                                    
+                                    
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                     <!-- /.card -->
@@ -54,7 +69,8 @@
             app.productId = id;
             axios.get('/api/products/' + id)
                 .then(function (resp) {
-                    app.product = resp.data;
+                    app.product = resp.data.product;
+                    app.customattributes = resp.data.attributes;
                     console.log(app.product);
                 })
                 .catch(function () {
@@ -69,7 +85,11 @@
                     image :'',
                     code : '',
                     price : '',
-                    description : ''
+                    description : '',
+                    otherattributes: []
+                },
+                customattributes:{
+                    
                 },
                 edit : false
             };

@@ -56,7 +56,8 @@ class ProductsController extends Controller
     {
         //
         $product = Product::where('hashid', $id)->first();
-        return response()->json( $product, 200);
+        $attributes = $product->otherattributes;
+        return response()->json( ['product'=>$product, 'attributes' => $attributes], 200);
     }
 
     /**
