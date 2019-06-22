@@ -131,4 +131,17 @@ class ProductsController extends Controller
     public function getCustomValue($value){
         return ['value' => $value];
     }
+
+
+    public function uploadimage(Request $request,$id){
+        $product = Product::find($id);
+        $file=$request->file('image');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move('uploads/' , $fileName );
+        $image = '/uploads/' . $fileName;
+        $product->image =  $image;
+        $product->save();
+        return response()->json($product, 200);
+
+    }
 }

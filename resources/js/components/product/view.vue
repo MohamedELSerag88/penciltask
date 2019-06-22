@@ -6,7 +6,9 @@
 
                 <div class="col-lg-3">
                     <h1 class="my-4">Product Details</h1>
-                    <router-link :to="{name: 'products'}" class="btn btn-xs btn-primary " >Home</router-link>                
+                    <router-link :to="{name: 'products'}" class="btn btn-xs btn-primary " >Home</router-link>   
+                    <button class="btn btn-xs btn-primary" @click="onPickFile"> Upload Photo</button>  
+                    <input type="file"  @change="selectedfile" style="display:none" accept="image/*" ref="file">           
                 </div>
                 <!-- /.col-lg-3 -->
 
@@ -70,8 +72,9 @@
             axios.get('/api/products/' + id)
                 .then(function (resp) {
                     app.product = resp.data.product;
+                    app.productId = resp.data.product.id;
                     app.customattributes = resp.data.attributes;
-                    console.log(app.product);
+                    // console.log(app.product);
                 })
                 .catch(function () {
                     alert("Could not load your Product")
@@ -88,11 +91,30 @@
                     description : '',
                     otherattributes: []
                 },
+                image:null,
                 customattributes:{
                     
                 },
                 edit : false
             };
+        },
+        methods: {
+            onPickFile :function(){
+                this.$refs.file.click();
+            },
+            selectedfile(event){
+                var app = this;
+                app.image = event.target.files[0];
+                var formdata = new FormData();
+                formdata.append('image',app.image,app.image.name);
+                axios.post('/api/uploadimage/'+app.productId,formdata)
+                .then(function (resp) {
+                    alert('success');
+                    app.product = resp.data;
+                }).catch(function (error) {
+                });
+            },
+            
         },
             // beforeRouteEnter (to, from, next) {
             //     fetch('/api/products/'.$router.params.id)
@@ -101,8 +123,5 @@
             //             this.product = res.data
             //         });
             // },
-            methods: {
-                
-            }
     }
 </script>

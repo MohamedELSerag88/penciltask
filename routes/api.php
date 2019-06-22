@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::resource('products', 'API\ProductsController');
 Route::post('createcustom/','API\ProductsController@createcustom');
+Route::post('uploadimage/{id}','API\ProductsController@uploadimage');
 Route::get('getcustoms',function(){
     return response()->json( \App\Attribute::all(), 200); 
 });

@@ -2178,6 +2178,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -2186,8 +2188,8 @@ __webpack_require__.r(__webpack_exports__);
     app.productId = id;
     axios.get('/api/products/' + id).then(function (resp) {
       app.product = resp.data.product;
-      app.customattributes = resp.data.attributes;
-      console.log(app.product);
+      app.productId = resp.data.product.id;
+      app.customattributes = resp.data.attributes; // console.log(app.product);
     })["catch"](function () {
       alert("Could not load your Product");
     });
@@ -2203,18 +2205,33 @@ __webpack_require__.r(__webpack_exports__);
         description: '',
         otherattributes: []
       },
+      image: null,
       customattributes: {},
       edit: false
     };
   },
-  // beforeRouteEnter (to, from, next) {
+  methods: {
+    onPickFile: function onPickFile() {
+      this.$refs.file.click();
+    },
+    selectedfile: function selectedfile(event) {
+      var app = this;
+      app.image = event.target.files[0];
+      var formdata = new FormData();
+      formdata.append('image', app.image, app.image.name);
+      axios.post('/api/uploadimage/' + app.productId, formdata).then(function (resp) {
+        alert('success');
+        app.product = resp.data;
+      })["catch"](function (error) {});
+    }
+  } // beforeRouteEnter (to, from, next) {
   //     fetch('/api/products/'.$router.params.id)
   //         .then(res => res.json())
   //         .then(res => {
   //             this.product = res.data
   //         });
   // },
-  methods: {}
+
 });
 
 /***/ }),
@@ -38957,7 +38974,23 @@ var render = function() {
                 attrs: { to: { name: "products" } }
               },
               [_vm._v("Home")]
-            )
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-xs btn-primary",
+                on: { click: _vm.onPickFile }
+              },
+              [_vm._v(" Upload Photo")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              ref: "file",
+              staticStyle: { display: "none" },
+              attrs: { type: "file", accept: "image/*" },
+              on: { change: _vm.selectedfile }
+            })
           ],
           1
         ),
