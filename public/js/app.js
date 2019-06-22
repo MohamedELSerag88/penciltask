@@ -2076,7 +2076,7 @@ __webpack_require__.r(__webpack_exports__);
       fetch('/api/products').then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.products = res.data;
+        _this.products = res;
       });
     },
     deleteEntry: function deleteEntry(id, index) {

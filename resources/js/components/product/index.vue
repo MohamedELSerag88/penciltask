@@ -72,7 +72,7 @@
                     fetch('/api/products')
                     .then(res => res.json())
                     .then(res => {
-                        this.products = res.data
+                        this.products = res
                     });
                 },
                 deleteEntry(id, index) {
