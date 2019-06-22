@@ -9,6 +9,27 @@
 
             </div>
             <div class="row">
+                <div class="col-md-4" v-for="product, index in products" v-bind:key="product.id">
+                    <figure class="card card-product">
+                        <div class="img-wrap"><img :src="product.image"></div>
+                        <figcaption class="info-wrap">
+                                <h4 class="title">{{ product.name }}</h4>
+                                <!-- rating-wrap.// -->
+                        </figcaption>
+                        <div class="bottom-wrap">
+                            
+                            <a href="#" class="btn btn-sm btn-danger float-right" v-on:click="deleteEntry(product.hashid, index)">Delete</a>	
+                            <router-link :to="{name: 'Editproduct', params: {id: product.hashid}}" class="btn btn-sm btn-primary float-righ" >Edit</router-link>
+                            <router-link :to="{name: 'Viewproduct', params: {id: product.hashid}}" class="btn btn-sm btn-primary float-righ" >View</router-link>
+                            <div class="price-wrap h5">
+                                <span class="price-new">$ {{ product.price }}</span> 
+                            </div> <!-- price-wrap.// -->
+                        </div> <!-- bottom-wrap.// -->
+                    </figure>
+                </div>
+                
+            </div>
+            <!-- <div class="row">
                 <div class="col-md-4 probootstrap-animate card card-body" v-for="product, index in products" v-bind:key="product.id">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
@@ -22,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 </template>
 
@@ -73,3 +94,37 @@
             }
     }
 </script>
+
+<style>
+.card-product .img-wrap {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+    text-align: center;
+}
+.card-product .img-wrap img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+.card-product .info-wrap {
+    overflow: hidden;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+.card-product .bottom-wrap {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.label-rating { margin-right:10px;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.card-product .price-old {
+    color: #999;
+}
+</style>
