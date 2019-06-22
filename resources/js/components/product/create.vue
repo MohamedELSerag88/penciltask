@@ -40,6 +40,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group col-md-6" v-for="attribute ,index  in customattributes">
+                        <label class="col-md-4 control-label">{{ attribute.name }}</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <input v-model="product.attributes[index + 1]"  :placeholder="attribute.name" class="form-control" required="true"  type="text">
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group col-md-6">
                         <label class="col-md-4 control-label">Description</label>
                         <div class="col-md-8 inputGroupContainer">
@@ -66,9 +74,13 @@
                     code :'',
                     price :'',
                     description:'',  
-                    image: ''
+                    image: '',
+                    attributes:[]
                 },
-                image:''
+                image:'',
+                customattributes:{
+                    
+                }
         }),
         methods :{
             save: function(){
@@ -87,7 +99,14 @@
             },
         },
         mounted() {
-        }
+            let app = this;
+            axios.get('/api/getcustoms')
+                .then(function (resp) {
+                    app.customattributes = resp.data;
+                })
+                .catch(function () {
+                });
+        },
     }
 </script>
 

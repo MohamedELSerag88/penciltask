@@ -43,6 +43,8 @@ class ProductsController extends Controller
         $input = $request->all();
         $input['hashid'] = Guid::create();
         $product = Product::create($input);
+        $input['attributes'] = array_map(array($this, 'getCustomValue'),$input['attributes']);
+        $product->otherattributes()->attach($input['attributes']);
         return response()->json($product, 201);
     }
 
@@ -118,5 +120,9 @@ class ProductsController extends Controller
         $attribute = Attribute::create($input);
         return response()->json($attribute, 201);
 
+    }
+
+    public function getCustomValue($value){
+        return ['value' => $value];
     }
 }

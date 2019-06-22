@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 Route::resource('products', 'API\ProductsController');
 Route::post('createcustom/','API\ProductsController@createcustom');
+Route::get('getcustoms',function(){
+    return response()->json( \App\Attribute::all(), 200); 
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
