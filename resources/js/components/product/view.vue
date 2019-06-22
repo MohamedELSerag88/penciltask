@@ -1,24 +1,45 @@
 <template>
     <div class="product_image_area">
-                <router-link :to="{name: 'products'}" class="btn btn-xs btn-primary" >Back</router-link>                
         <div class="container">
-            <div class="row s_product_inner">
-                <div class="col-lg-6">
-                    <img :src="product.image" alt=""  style="width:100%;height:100%"/>
+
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <h1 class="my-4">Product Details</h1>
+                    <router-link :to="{name: 'products'}" class="btn btn-xs btn-primary " >Home</router-link>                
                 </div>
-                <div class="col-lg-5 offset-lg-1">
-                    <div class="s_product_text">
-                        <h3 >Name : {{ product.name }}</h3>
-                        <h2 >Price :$ {{ product.price }}</h2>
-                        <h2>Code :  {{ product.code }}</h2>
-                    
-                        <p>
-                           {{ product.description }}
-                        </p>
+                <!-- /.col-lg-3 -->
+
+                <div class="col-lg-9">
+
+                    <div class="card mt-4">
+                        <img class="card-img-top img-fluid" :src="product.image" alt="">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ product.name }}</h3> <h6>Code : {{ product.code }}</h6>
+                            <h4>$ {{ product.price }}</h4>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
                     </div>
+                    <!-- /.card -->
+
+                    <div class="card card-outline-secondary my-4">
+                        <div class="card-header">
+                            Product Custom Fields
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+                            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+
                 </div>
+                <!-- /.col-lg-9 -->
+
             </div>
-         </div>
+
+        </div>
     </div>
 </template>
 
