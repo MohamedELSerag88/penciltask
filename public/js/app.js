@@ -1771,17 +1771,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1790,11 +1779,11 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         code: '',
         price: '',
+        image: null,
         description: '',
-        image: '',
         attributes: []
       },
-      image: '',
+      SelectedFile: null,
       customattributes: {}
     };
   },
@@ -1802,8 +1791,8 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       var app = this;
       var newproduct = app.product;
+      console.log(app.product.image);
       axios.post('/api/products', newproduct).then(function (resp) {
-        console.log(resp);
         alert('success');
         app.$router.push({
           path: '/'
@@ -1812,6 +1801,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(resp);
         alert("Could not create your Product");
       });
+    },
+    onFileSelected: function onFileSelected(event) {
+      var app = this;
+      app.product.image = event.target.files[0];
     }
   },
   mounted: function mounted() {
@@ -1966,18 +1959,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1987,17 +1968,15 @@ __webpack_require__.r(__webpack_exports__);
         code: '',
         price: '',
         description: '',
-        image: '',
+        image: null,
         attributes: []
       },
-      image: '',
       customattributes: {}
     };
   },
   methods: {
     edit: function edit() {
       var app = this;
-      var image = this.image;
       var newproduct = app.product;
       axios.patch('/api/products/' + app.productId, newproduct).then(function (resp) {
         console.log(resp);
@@ -2006,9 +1985,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
-    },
-    handleFileChange: function handleFileChange() {
-      this.image = this.$refs.file.files[0];
     }
   },
   mounted: function mounted() {
@@ -2018,7 +1994,6 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/products/' + id + '/edit').then(function (resp) {
       app.product = resp.data.product;
       app.product.attributes = resp.data.attributes;
-      console.log(app.product.attributes);
       app.customattributes = resp.data.allattribute;
     })["catch"](function () {
       alert("Could not load your Product");
@@ -38286,7 +38261,7 @@ var render = function() {
                           name: "price",
                           placeholder: "price",
                           required: "true",
-                          type: "text "
+                          type: "number"
                         },
                         domProps: { value: _vm.product.price },
                         on: {
@@ -38335,39 +38310,6 @@ var render = function() {
                           }
                         }
                       })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", { staticClass: "col-md-4 control-label" }, [
-                    _vm._v("Image")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-8 inputGroupContainer" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("input", {
-                        ref: "file",
-                        staticClass: "form-control",
-                        attrs: {
-                          name: "image",
-                          placeholder: "Choose file",
-                          required: "true",
-                          type: "file"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-xs-12" }, [
-                      _c("img", {
-                        staticStyle: {
-                          width: "200px",
-                          "object-fit": "contain"
-                        },
-                        attrs: { src: _vm.product.image }
-                      }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.product.image))])
                     ])
                   ])
                 ]),
@@ -38429,7 +38371,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { name: "description", required: "true" },
+                        attrs: { name: "description" },
                         domProps: { value: _vm.product.description },
                         on: {
                           input: function($event) {
@@ -38752,39 +38694,6 @@ var render = function() {
                           }
                         }
                       })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", { staticClass: "col-md-4 control-label" }, [
-                    _vm._v("Image")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-8 inputGroupContainer" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("input", {
-                        ref: "file",
-                        staticClass: "form-control",
-                        attrs: {
-                          name: "image",
-                          placeholder: "Choose file",
-                          required: "true",
-                          type: "file"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-xs-12" }, [
-                      _c("img", {
-                        staticStyle: {
-                          width: "200px",
-                          "object-fit": "contain"
-                        },
-                        attrs: { src: _vm.product.image }
-                      }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.product.image))])
                     ])
                   ])
                 ]),

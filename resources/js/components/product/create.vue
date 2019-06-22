@@ -16,7 +16,7 @@
                         <label class="col-md-4 control-label">Price</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
-                                <input v-model="product.price"  name="price" placeholder="price" class="form-control" required="true"  type="text ">
+                                <input v-model="product.price"  name="price" placeholder="price" class="form-control" required="true"  type="number">
                             </div>
                         </div>
                     </div>
@@ -28,18 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-md-4 control-label">Image</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                                <input ref="file"  name="image" placeholder="Choose file" class="form-control" required="true"  type="file">
-                            </div>
-                            <div class="col-xs-12">
-                                <img :src="product.image"  style="width:200px;object-fit:contain">
-                                <p >{{ product.image }}</p>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div class="form-group col-md-6" v-for="attribute ,index  in customattributes">
                         <label class="col-md-4 control-label">{{ attribute.name }}</label>
                         <div class="col-md-8 inputGroupContainer">
@@ -52,7 +41,7 @@
                         <label class="col-md-4 control-label">Description</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
-                                <textarea v-model="product.description" name="description" class="form-control" required="true" ></textarea>
+                                <textarea v-model="product.description" name="description" class="form-control" ></textarea>
                             </div>
                         </div>
                     </div>
@@ -70,32 +59,37 @@
     export default {
         data: () =>({
             product: {
-                    name:'',
-                    code :'',
-                    price :'',
-                    description:'',  
-                    image: '',
-                    attributes:[]
-                },
-                image:'',
-                customattributes:{
-                    
-                }
+                        name:'',
+                        code :'',
+                        price :'',
+                        image:null,
+                        description:'',  
+                        attributes:[]
+                    },
+            SelectedFile:null,
+            customattributes:{
+                
+                            }
         }),
         methods :{
             save: function(){
                 var app = this;
                 var newproduct =app.product;
-                axios.post('/api/products', newproduct)
+                console.log(app.product.image);
+                axios.post('/api/products',newproduct)
                     .then(function (resp) {
-                        console.log(resp);
-                        alert('success');
+                        alert('success');   
                         app.$router.push({path: '/'});
                     })
                     .catch(function (resp) {
-                        console.log(resp);
+                        console.log(resp)
                         alert("Could not create your Product");
                     });
+            },
+            onFileSelected (event){
+                let app = this;
+                app.product.image = event.target.files[0];
+
             },
         },
         mounted() {

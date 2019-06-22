@@ -28,18 +28,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label class="col-md-4 control-label">Image</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                                <input ref="file"  name="image" placeholder="Choose file" class="form-control" required="true"  type="file">
-                            </div>
-                            <div class="col-xs-12">
-                                <img :src="product.image"  style="width:200px;object-fit:contain">
-                                <p >{{ product.image }}</p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-group col-md-6" v-for="attribute ,index  in customattributes">
                         <label class="col-md-4 control-label">{{ attribute.name }}</label>
                         <label class="col-md-4 control-label">  {{ attribute.name }}</label>
@@ -86,10 +74,9 @@
                     code :'',
                     price :'',
                     description:'',  
-                    image: '',
+                    image: null,
                     attributes :[]
                 },
-                image:'',
                 customattributes:{
                     
                 }
@@ -99,7 +86,6 @@
         methods: {
             edit: function(){
                 var app = this;
-                var image = this.image;
                 var newproduct =app.product;
                 axios.patch('/api/products/'+app.productId,newproduct)
                 .then(function (resp) {
@@ -110,9 +96,6 @@
                     console.log(error)
                 });
             },
-            handleFileChange(){
-               this.image = this.$refs.file.files[0];
-            },
         },
         mounted() {
             let app = this;
@@ -122,7 +105,6 @@
                 .then(function (resp) {
                     app.product = resp.data.product;
                     app.product.attributes = resp.data.attributes;
-                    console.log(app.product.attributes);
                     app.customattributes = resp.data.allattribute;
                 })
                 .catch(function () {
