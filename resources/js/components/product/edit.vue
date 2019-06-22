@@ -37,6 +37,20 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
+                        <label class="col-md-4 control-label">Image</label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <a class="btn btn-xs btn-primary" @click="onPickFile" style="height: max-content;"> Upload Photo</a>  
+                                <input type="file"  @change="selectedfile" style="display:none" accept="image/*" ref="file">           
+
+                                <div>
+                                    <img :src="imageURL" alt="" height="200">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label class="col-md-4 control-label">Description</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
@@ -68,6 +82,8 @@
                     image: null,
                     attributes :[]
                 },
+                image:null,
+                imageURL: null,
                 customattributes:{
                     
                 }
@@ -80,11 +96,31 @@
                 var newproduct =app.product;
                 axios.patch('/api/products/'+app.productId,newproduct)
                 .then(function (resp) {
+                        app.product = resp.data;
+                        var formdata = new FormData();
+                        formdata.append('image',app.image,app.image.name);
+                        axios.post('/api/uploadimage/'+app.product.id,formdata)
+                        .then(function (resp) {
+                                app.$router.push({path: '/'});
+                        }).catch(function (error) {
+                        });  
                     console.log(resp);
-                   app.$router.replace('/');
                 }).catch(function (error) {
                     console.log(error)
                 });
+            },
+            onPickFile :function(){
+                this.$refs.file.click();
+            },
+            selectedfile (event){
+                var app = this;
+                app.image = event.target.files[0];
+                var filename = app.image.name;
+                var filereader = new FileReader();
+                filereader.addEventListener('load',function(){
+                app.imageURL = filereader.result;
+                });
+                filereader.readAsDataURL(app.image);
             },
         },
         mounted() {
@@ -96,6 +132,7 @@
                     app.product = resp.data.product;
                     app.product.attributes = new Array(resp.data.allattribute.length)
                     app.customattributes = resp.data.allattribute;
+                    app.imageURL = app.product.image;
                 })
                 .catch(function () {
                     alert("Could not load your Product")
