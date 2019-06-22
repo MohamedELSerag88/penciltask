@@ -48,4 +48,11 @@ class Product extends Model
     ];
 
 
+    public function setImageAttribute($file){
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move('uploads/' , $fileName );
+        $this->attributes['image'] = '/uploads//' . $fileName;
+    }
+
+
 }

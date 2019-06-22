@@ -77,6 +77,21 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // $this->validate($request,[
+        //     'name'=>'required',
+        //     'code'=>'required',
+        //     'price'=>'required',
+        //     'image'=>'required'
+        // ]);
+        $input = $request->all();
+        $product = Product::where('hashid', $id)->first();
+        $product->name = $input['name'];
+        $product->code = $input['code'];
+        $product->price = $input['price'];
+        $product->description = $input['description'] ?? '';
+        $product->save();
+        return response()->json($product, 200);        
+
     }
 
     /**

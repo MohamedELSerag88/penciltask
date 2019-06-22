@@ -36,21 +36,22 @@
                     console.log(app.product);
                 })
                 .catch(function () {
-                    alert("Could not load your company")
+                    alert("Could not load your Product")
                 });
         },
         data(){
-                return {
-                    productId :null,
-                    product : {
-                        name : 'hghjg',
-                        image :'',
-                        code : '',
-                        price : ''
-                    },
-                    edit : false
-                };
-            },
+            return {
+                productId :null,
+                product : {
+                    name : 'hghjg',
+                    image :'',
+                    code : '',
+                    price : '',
+                    description : ''
+                },
+                edit : false
+            };
+        },
             // beforeRouteEnter (to, from, next) {
             //     fetch('/api/products/'.$router.params.id)
             //         .then(res => res.json())

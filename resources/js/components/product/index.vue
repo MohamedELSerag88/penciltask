@@ -6,7 +6,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 probootstrap-animate card card-body" v-for="product in products" v-bind:key="product.id">
+                <div class="col-md-4 probootstrap-animate card card-body" v-for="product, index in products" v-bind:key="product.id">
                     <div class="probootstrap-card with-hover">
                         <div class="probootstrap-card-media">
                             <a href="#"><img :src="product.image" class="img-responsive img-border" alt="image"></a>
@@ -56,10 +56,13 @@
                     var app = this;
                     axios.delete('/api/products/' + id)
                         .then(function (resp) {
-                            app.companies.splice(index, 1);
+                            app.products.splice(index, 1);
+                            console.log('success');
                         })
                         .catch(function (resp) {
                             alert("Could not delete product");
+                            console.log(resp);
+
                         });
                 }
             }
