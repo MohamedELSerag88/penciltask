@@ -20,7 +20,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->delete();
 
         Product::create([
-            'hashid' => Hash::make('Product_1_code_xyz'),
+            'hashid' => 'f99b3606-a944-478d-b423-22f74d3b4b0e',
             'name' => 'Product 1',
             'code' => 'Product_1_code_xyz',
             'price' => 200,
@@ -31,7 +31,7 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::create([
-            'hashid' => Hash::make('Product_2_code_mnb'),
+            'hashid' => 'd9f7236b-c6c8-41e9-89c4-785d98c860ff',
             'name' => 'Product 2',
             'code' => 'Product_2_code_mnb',
             'price' => 250,
@@ -42,7 +42,7 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::create([
-            'hashid' => Hash::make('Product_3_code_rew'),
+            'hashid' => 'c9e9b422-8820-4ac8-9380-b41ddd722b04',
             'name' => 'Product 3',
             'code' => 'Product_3_code_rew',
             'price' => 350,
@@ -53,7 +53,7 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::create([
-            'hashid' => Hash::make('Product_3_code_rew'),
+            'hashid' => '3b0820c5-5a7e-410c-847a-ff9d963fb73d',
             'name' => 'Product 4',
             'code' => 'Product_4_code_mcnc',
             'price' => 500,
@@ -64,7 +64,7 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::create([
-            'hashid' => Hash::make('Product_3_code_rew'),
+            'hashid' => '37758cee-403d-400d-a647-703b1e96f76d',
             'name' => 'Product 5',
             'code' => 'Product_5_code_xycz',
             'price' => 400,
@@ -75,7 +75,7 @@ class ProductsTableSeeder extends Seeder
         ]);
 
         Product::create([
-            'hashid' => Hash::make('Product_3_code_rew'),
+            'hashid' => '2075b2ee-c83e-4c97-a17f-b84c44601cf1',
             'name' => 'Product 6',
             'code' => 'Product_6_code_xyz',
             'price' => 300,
